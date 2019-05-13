@@ -47,4 +47,17 @@ class ArticleRepository extends ServiceEntityRepository
         ;
     }
     */
+
+
+    public function findByCategory($value)
+    {
+        return $this->createQueryBuilder('a')
+            ->andWhere('a.category = :val')
+            ->setParameter('val', $value)
+            ->orderBy('a.title', 'ASC')
+            ->setMaxResults(3)
+            ->getQuery()
+            ->getResult()
+        ;
+    }
 }
