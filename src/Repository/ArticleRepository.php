@@ -54,7 +54,7 @@ class ArticleRepository extends ServiceEntityRepository
         return $this->createQueryBuilder('a')
             ->andWhere('a.category = :val')
             ->setParameter('val', $value)
-            ->orderBy('a.title', 'ASC')
+            ->orderBy('a.id', 'ASC')
             ->setMaxResults(3)
             ->getQuery()
             ->getResult()
