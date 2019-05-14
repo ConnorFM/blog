@@ -47,4 +47,9 @@ class CategoryRepository extends ServiceEntityRepository
         ;
     }
     */
+
+   public function findOneByName($categoryName)
+   {
+    return $this->findOneBy(['name' => mb_strtolower($categoryName)]);
+   }
 }
