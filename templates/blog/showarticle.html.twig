@@ -1,15 +1,15 @@
 {# templates/blog/show.html.twig #}
 {% extends 'base.html.twig' %}
 
-{% block title %}{{ slug }}{% endblock %}
+{% block title %}{{ slug | title }}{% endblock %}
 
-{% block stylesheets %}{% endblock %}
+
 
 {% block body %}
 
 <div>
-    <h1>Real article s title : {{ article.title }}</h1>
-    <h2>Category : {{ article.category.name }}</h2>
+    <h1>{{ article.title | title }}</h1>
+    <h2>Category : {{ article.category.name | title}}</h2>
     <p>{{ article.content }}</p>
 </div>
 
