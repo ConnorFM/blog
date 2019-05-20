@@ -8,9 +8,9 @@
     {% for article in articles %}
         <div class="container">
             <div class="card">
-                <h5 class="card-header">{{ loop.index }} / <a href="{{ path('show_article', { 'slug': article.title | replace({' ':'-'}) }) }}" class="text-body">{{ article.title | title }}</a></h5>
+                <h5 class="card-header">{{ loop.index }} / <a href="{{ path('article_show', {'id': article.id }) }}">{{ article.title | title }}</a></h5>
                 <div class="card-body">
-                    <h5 class="card-title">Category : <a href="{{ path('category_name', { 'categoryName': article.category.name | lower }) }}" class="text-body">{{ article.category.name }}</a></h5>
+                    <h5 class="card-title">Category : <a href="{{ path('category_show', { 'name': article.category.name | lower }) }}" class="text-body">{{ article.category.name }}</a></h5>
                     <p class="card-text">{{ article.content }}</p>
                 </div>
             </div>

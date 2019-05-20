@@ -55,7 +55,7 @@ class BlogController extends AbstractController
    *     name="show_article")
    *  @return Response A response instance
    */
-   public function show(string $slug) : Response
+ /**  public function show(string $slug) : Response
    {
        if (!$slug) {
               throw $this
@@ -85,13 +85,13 @@ class BlogController extends AbstractController
 
         ]
       );
-  }
+  }*/
 
   /**
   * Getting 3 articles from its category
   * @Route("/category/{categoryName}", name="category_name")
   */
-  public function showByCategory(string $categoryName)
+  /**public function showByCategory(string $categoryName)
     {
       $category = $this->getDoctrine()
           ->getRepository(Category::class)
@@ -108,5 +108,24 @@ class BlogController extends AbstractController
           'blog/category.html.twig',
           ['articles' => $articles]
           );
+    }*/
+
+
+   /**
+   * @Route("/article/{id}", name="article_show")
+   */
+  public function show(Article $article): Response
+    {
+        return $this->render('blog/article.html.twig', ['article'=>$article]);
+    }
+
+  /**
+   * @Route("/category/{name}", name="category_show")
+   */
+  public function showByCategory(Category $category): Response
+    {
+      $articles=$category->getArticles();
+
+      return $this->render('blog/category.html.twig', ['articles'=>$articles]);
     }
 }

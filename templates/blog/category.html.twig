@@ -10,7 +10,7 @@
             <h5 class="card-header">
                 {{ article.title | title }} (id : {{ article.id }} )</h5>
             <div class="card-body">
-                <h5 class="card-title">Category : <a href="{{ path('category_name', { 'categoryName': article.category.name | lower }) }}" class="text-body">{{ article.category.name | title }}</a></h5>
+                <h5 class="card-title">Category : <a href="{{ path('category_show', { 'name': article.category.name | lower }) }}" class="text-body">{{ article.category.name | title }}</a></h5>
                 <p class="card-text">{{ article.content }}</p>
             </div>
         </div>
