@@ -8,6 +8,10 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use App\Entity\Article;
 use App\Entity\Category;
+use Symfony\Component\HttpFoundation\Request;
+use App\Form\ArticleSearchType;
+
+
 
 
 class BlogController extends AbstractController
@@ -18,8 +22,17 @@ class BlogController extends AbstractController
      * @Route("/", name="blog_index")
      * @return Response A response instance
      */
-     public function index(): Response
+     public function index(Request $request): Response
      {
+          $form = $this->createForm(
+              ArticleSearchType::class);
+          $form->handleRequest($request);
+
+           if ($form->isSubmitted())
+            {
+            $data = $form->getData();
+            }
+
           $articles = $this->getDoctrine()
               ->getRepository(Article::class)
               ->findAll();
@@ -30,9 +43,11 @@ class BlogController extends AbstractController
               );
           }
 
+
           return $this->render(
                   'blog/index.html.twig',
-                  ['articles' => $articles]
+                  ['articles' => $articles,
+                    'form' => $form->createView()]
           );
     }
 
@@ -119,6 +134,8 @@ class BlogController extends AbstractController
         return $this->render('blog/article.html.twig', ['article'=>$article]);
     }
 
+
+
   /**
    * @Route("/category/{name}", name="category_show")
    */
@@ -126,6 +143,8 @@ class BlogController extends AbstractController
     {
       $articles=$category->getArticles();
 
-      return $this->render('blog/category.html.twig', ['articles'=>$articles]);
+      return $this->render('blog/category.html.twig', ['articles'=>$articles,
+                                                        'categories'=>$category]);
     }
+
 }
