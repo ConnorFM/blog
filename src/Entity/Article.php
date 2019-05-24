@@ -35,7 +35,8 @@ class Article
     private $category;
 
     /**
-     * @ORM\ManyToMany(targetEntity="App\Entity\Tag", mappedBy="name")
+     * @ORM\ManyToMany(targetEntity="App\Entity\Tag", mappedBy="articles")
+     * @ORM\JoinTable(name="tag")
      */
     private $tags;
 
