@@ -36,7 +36,7 @@ class Article
 
     /**
      * @ORM\ManyToMany(targetEntity="App\Entity\Tag", mappedBy="articles")
-     * @ORM\JoinTable(name="tag")
+     * @ORM\JoinTable(name="tags")
      */
     private $tags;
 
@@ -98,7 +98,7 @@ class Article
     {
         if (!$this->tags->contains($tag)) {
             $this->tags[] = $tag;
-            $tag->addName($this);
+            $tag->addArticle($this);
         }
 
         return $this;
@@ -108,7 +108,7 @@ class Article
     {
         if ($this->tags->contains($tag)) {
             $this->tags->removeElement($tag);
-            $tag->removeName($this);
+            $tag->removeArticle($this);
         }
 
         return $this;
