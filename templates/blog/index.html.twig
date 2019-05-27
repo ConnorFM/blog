@@ -15,7 +15,7 @@
                 <h5 class="card-header">{{ loop.index }} / <a href="{{ path('article_show', {'id': article.id }) }}">{{ article.title | title }}</a></h5>
                 <div class="card-body">
                     <h5 class="card-title">Category : <a href="{{ path('category_show', { 'name': article.category.name | lower }) }}" class="text-body">{{ article.category.name }}</a></h5>
-                    <p class="card-text">{{ article.content }}</p>
+                    <p class="card-text">{{ article.content | raw }}</p>
                 </div>
             </div>
         </div>

@@ -10,7 +10,7 @@
 <div>
     <h1>{{ article.title | title }}</h1>
     <h2>Category : {{ article.category.name | title }}</h2>
-    <p>{{ article.content }}</p>
+    <p>{{ article.content | raw }}</p>
 </div>
     <strong>Tags :</strong>
     <ul>
