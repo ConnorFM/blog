@@ -42,9 +42,10 @@ class Category
     }
 
     /**
-    * param Article $article
-    * @return Category
-    */
+     * param Article $article
+     * @param Article $article
+     * @return Category
+     */
     public function addArticle(Article $article): self
     {
         if (!$this->articles->contains($article)) {
