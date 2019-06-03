@@ -4,6 +4,9 @@
 {% block title %}All articles{% endblock %}
 
 {% block body %}
+    {% if app.user %}
+        <a class="nav-item">Bonjour {{ app.user.email }} !</a>
+    {% endif %}
     {{ form_start(form) }}
     {{ form_row(form.searchField) }}
     <button type="submit" name="btnSearch">Search</button>

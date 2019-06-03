@@ -38,7 +38,6 @@ class ArticleFixtures extends Fixture implements DependentFixtureInterface
                         ->setContent($content)
                         ->setCategory($this->getReference('category_' . rand(0,4)));
                 $article->setSlug($this->slug->generate($article->getTitle()));
-
                 $manager->persist($article);
 
             }

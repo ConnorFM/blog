@@ -15,8 +15,15 @@
             <div class="navbar-nav">
               <a class="nav-item nav-link active" href="{{ path('homepage') }}">Home<span class="sr-only">(current)</span></a>
               <a class="nav-item nav-link" href="{{ path('blog_index') }}">All articles</a>
-              <a class="nav-item nav-link" href="{{ path('category_show', { 'name': "javascript" }) }}">Javascript</a>
+              <a class="nav-item nav-link" href="{{ path('article_index') }}">CRUD</a>
               <a class="nav-item nav-link" href="{{ path('add_category') }}">Add Category</a>
+              <a class="nav-item nav-link" href="{{ path('article_new') }}">New article</a>
+              {% if app.user %}
+              <a class="nav-item nav-link" href="{{ path('app_logout') }}"> Logout</a>
+              {% else %}
+              <a class="nav-item nav-link" href="{{ path('app_login') }}"> Login</a>
+              {% endif %}
+
             </div>
           </div>
         </nav>
