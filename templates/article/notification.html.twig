@@ -1,0 +1,15 @@
+
+
+
+{% block body %}
+    <h1>New Article: {{ article.title }} in category {{ article.category.name }}</h1>
+
+    <p>Sent by {{ name }}</p>
+
+</br>
+</br>
+
+<a href=" {{ url('article_show', {'id':article.id}) }}">See your article</a>
+
+
+{% endblock %}

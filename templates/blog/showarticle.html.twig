@@ -12,6 +12,7 @@
     <h2>Category : {{ article.category.name | title}}</h2>
     <p>{{ article.content | raw}}</p>
 </div>
+{{ article.slug }}
     <strong>Tags :</strong>
     <ul>
         {% for tag in article.tags %}

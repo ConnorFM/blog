@@ -30,7 +30,7 @@ class ArticleController extends AbstractController
     /**
      * @Route("/new", name="article_new", methods={"GET","POST"})
      */
-    public function new(Request $request, Slugify $slugify): Response
+    public function new(Request $request, Slugify $slugify, \Swift_Mailer $mailer): Response
     {
         $article = new Article();
         $form = $this->createForm(ArticleType::class, $article);
@@ -41,6 +41,20 @@ class ArticleController extends AbstractController
             $article->setSlug($slugify->generate($article->getTitle()));
             $entityManager->persist($article);
             $entityManager->flush();
+
+            $message = (new \Swift_Message('Un nouvel article vient d\'être publié !'))
+            ->setFrom($this->getParameter('mailer_from'))
+            ->setTo($this->getParameter('mailer_from'))
+            ->setBody(
+                    $this->renderView(
+                        'article/notification.html.twig',
+                        ['article' => $article , 'name' => $this->getParameter('mailer_from')]
+                    ),
+                    'text/html'
+            )
+
+            ;
+            $mailer->send($message);
 
             return $this->redirectToRoute('article_index');
         }
@@ -53,6 +67,8 @@ class ArticleController extends AbstractController
 
     /**
      * @Route("/{id}", name="article_show", methods={"GET"})
+     * @param  Article $artice
+     * @return  Response
      */
     public function show(Article $article): Response
     {
@@ -63,6 +79,9 @@ class ArticleController extends AbstractController
 
     /**
      * @Route("/{id}/edit", name="article_edit", methods={"GET","POST"})
+     * @param Request $request
+     * @param  Article $article
+     * @return  Response
      */
     public function edit(Request $request, Article $article, Slugify $slugify): Response
     {
@@ -74,7 +93,7 @@ class ArticleController extends AbstractController
             $this->getDoctrine()->getManager()->flush();
 
             return $this->redirectToRoute('article_index', [
-                'id' => $article->getId(),
+                'slug' => $article->getSlug(),
             ]);
         }
 
