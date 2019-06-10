@@ -22,6 +22,10 @@ security:
             logout:
                 path:   app_logout
 
+    role_hierarchy:
+        ROLE_AUTHOR:       ROLE_USER
+        ROLE_ADMIN: ROLE_AUTHOR
+
             # activate different ways to authenticate
 
             # http_basic: true
@@ -33,6 +37,6 @@ security:
     # Easy way to control access for large sections of your site
     # Note: Only the *first* access control that matches will be used
     access_control:
-        # - { path: ^/admin, roles: ROLE_ADMIN }
-        # - { path: ^/profile, roles: ROLE_USER }
+        # - { path: ^/article, roles: ROLE_ADMIN }
+        - { path: ^/article, roles: ROLE_AUTHOR }
         - { path: ^/login$, roles: IS_AUTHENTICATED_ANONYMOUSLY }
