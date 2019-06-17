@@ -13,7 +13,7 @@
                 <th>Title</th>
                 <th>Slug</th>
                 <th>tags</th>
-                <th>Author</th>
+{#                <th>Author</th>#}
                 <th>actions</th>
 
             </tr>
@@ -31,11 +31,11 @@
                         <li>No tags for this article</li>
                     {% endfor %}
                 </td>
-                {% if article.author %}
+               {# {% if article.author %}
                     <td>{{ article.author.email }}</td>
                 {% else %}
                     <td>No author set</td>
-                {% endif %}
+                {% endif %}#}
                 <td>
                     <a href="{{ path('article_show', {'id': article.id}) }}">show</a>
 
