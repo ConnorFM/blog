@@ -60,4 +60,34 @@ class ArticleRepository extends ServiceEntityRepository
             ->getResult()
         ;
     }
+
+
+    public function findAllWithCategories()
+    {
+        $qb = $this->createQueryBuilder('a')
+            ->innerJoin('a.category', 'c' )
+            ->addSelect('c')
+            ->getQuery();
+
+        return $qb->execute();
+    }
+
+    public function findAllWithCategoriesAndTags()
+    {
+        $em = $this->getEntityManager();
+        $query = $em->createQuery('SELECT a, c, t FROM App\Entity\Article a INNER JOIN a.category c INNER JOIN a.tags t');
+
+        return $query->execute();
+    }
+
+    public function findAllWithCategoriesAndTagsAll()
+    {
+        $qb = $this->createQueryBuilder('a')
+            ->innerJoin('a.category', 'c' )
+            ->addSelect('c')
+            ->leftJoin('a.tags', 't')
+            ->getQuery();
+
+        return $qb->execute();
+    }
 }

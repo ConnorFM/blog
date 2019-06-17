@@ -25,7 +25,11 @@
             </tr>
             <tr>
                 <th>Author</th>
-                <td>{{ article.author.email }}</td>
+                {% if article.author %}
+                    <td>{{ article.author.email }}</td>
+                {% else %}
+                    <td>No author set</td>
+                {% endif %}
             </tr>
 
         </tbody>
