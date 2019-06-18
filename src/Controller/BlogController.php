@@ -10,6 +10,7 @@ use App\Entity\Article;
 use App\Entity\Category;
 use Symfony\Component\HttpFoundation\Request;
 use App\Form\ArticleSearchType;
+use Symfony\Component\HttpFoundation\Session\SessionInterface;
 
 
 
@@ -22,18 +23,16 @@ class BlogController extends AbstractController
      * @Route("/", name="blog_index")
      * @return Response A response instance
      */
-     public function index(Request $request): Response
+     public function index(Request $request, SessionInterface $session): Response
      {
-          $form = $this->createForm(
-              ArticleSearchType::class);
-          $form->handleRequest($request);
+         if (!$session->has('total')) {
+             $session->set('total', 0); // if total doesn’t exist in session, it is initialized.
+         }
 
-           if ($form->isSubmitted())
-            {
-            $data = $form->getData();
-            }
+         $total = $session->get('total'); // get actual value in session with ‘total' key.
 
-          $articles = $this->getDoctrine()
+
+         $articles = $this->getDoctrine()
               ->getRepository(Article::class)
               ->findAllWithCategories();
 
@@ -47,7 +46,7 @@ class BlogController extends AbstractController
           return $this->render(
                   'blog/index.html.twig',
                   ['articles' => $articles,
-                    'form' => $form->createView()]
+                    ]
           );
     }
 

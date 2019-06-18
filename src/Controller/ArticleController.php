@@ -46,6 +46,9 @@ class ArticleController extends AbstractController
             $entityManager->persist($article);
             $entityManager->flush();
 
+            // Once the form is submitted, valid and the data inserted in database, you can define the success flash message
+            $this->addFlash('success', 'The new article has been created');
+
             $message = (new \Swift_Message('Un nouvel article vient d\'être publié !'))
             ->setFrom($this->getParameter('mailer_from'))
             ->setTo($this->getParameter('mailer_from'))
@@ -98,6 +101,8 @@ class ArticleController extends AbstractController
             $article->setSlug($slugify->generate($article->getTitle()));
             $this->getDoctrine()->getManager()->flush();
 
+            $this->addFlash('success', 'The article has been edited');
+
             return $this->redirectToRoute('article_index', [
                 'slug' => $article->getSlug(),
             ]);
@@ -120,6 +125,8 @@ class ArticleController extends AbstractController
             $entityManager->remove($article);
             $entityManager->flush();
         }
+
+        $this->addFlash('danger', 'The article has been successfully deleted');
 
         return $this->redirectToRoute('article_index');
     }

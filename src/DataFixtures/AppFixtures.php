@@ -32,7 +32,7 @@ class AppFixtures extends Fixture
 
     public function load(ObjectManager $manager)
     {
-        for ($i = 1; $i <= 1000; $i++) {
+        /*for ($i = 1; $i <= 1000; $i++) {
             $category = new Category();
             $category->setName("category " . $i);
             $manager->persist($category);
@@ -52,6 +52,6 @@ class AppFixtures extends Fixture
             $manager->persist($article);
         }
 
-        $manager->flush();
+        $manager->flush();*/
     }
 }

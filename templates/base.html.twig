@@ -6,6 +6,16 @@
         {% block stylesheets %}{{ encore_entry_link_tags('app') }}{% endblock %}
     </head>
     <body>
+
+        {% for category, messages in app.flashes %}
+            {% for message in messages %}
+                <div class="alert alert-{{ category }}">
+                    {{ message }}
+                </div>
+            {% endfor %}
+        {% endfor %}
+
+
         <nav class="navbar navbar-expand-lg navbar-light bg-light">
           <a class="navbar-brand" href="{{ path('homepage') }}">Blog</a>
           <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">

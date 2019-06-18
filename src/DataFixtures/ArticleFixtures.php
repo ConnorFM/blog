@@ -3,6 +3,7 @@
 namespace App\DataFixtures;
 
 use App\Entity\Article;
+use App\Entity\Tag;
 use App\Service\Slugify;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Common\Persistence\ObjectManager;
@@ -30,6 +31,10 @@ class ArticleFixtures extends Fixture implements DependentFixtureInterface
 
             // Créer 50 articles
             for ($j=1; $j <= 50 ; $j++) {
+
+                $tag = new Tag();
+                $tag->setName("tag " . $j);
+                $manager->persist($tag);
                 $article = new Article();
 
                 $content = '<p>' . join($faker->paragraphs(3), '</p><p>') . '</p>';
@@ -37,6 +42,7 @@ class ArticleFixtures extends Fixture implements DependentFixtureInterface
                 $article->setTitle(mb_strtolower($faker->sentence()))
                         ->setContent($content)
                         ->setCategory($this->getReference('category_' . rand(0,4)));
+                $article->addTag($tag);
                 $article->setSlug($this->slug->generate($article->getTitle()));
                 $manager->persist($article);
 
